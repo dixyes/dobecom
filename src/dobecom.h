@@ -12,9 +12,12 @@ by dixyes (dixyes@gmail.com)
 #define MAX_USRNM 36
 #define MAX_PWD 64
 #define MAX_CHA_TRY 10
-#define MAX_RECV_PKT 1024
+#define MAX_RECV_PKT 512
 
-#define D_DOBEVERSIION "8089D"//CUST uses none
+#define D_DOBEVERSION "8089D" //host_os
+#define D_CONTROLCHECKSTATUS 0x20 //see py file
+#define D_ADAPTERNUM 0x01 //see py file
+#define D_AUTH_VERSION "\x0a\0"
 #define D_SSTRING "a4e112f92be60a607d249a962dc79ce96f74ee64"//CUST String
 #define D_SVR_IP "192.168.254.3"
 #define D_DNS_IP "210.47.0.1"
@@ -29,6 +32,10 @@ by dixyes (dixyes@gmail.com)
 #define _DOBE_STRUCT
 
 #include <stdbool.h>
+#ifdef _WIN32
+#include <winsock2.h>
+#include <Ws2tcpip.h>
+#endif
 struct dobeinfo
 {
     char username[MAX_USRNM];
@@ -39,9 +46,13 @@ struct dobeinfo
     uint8_t pdnsip[4];
     uint8_t dhcpip[4];
     uint8_t sdnsip[4];
+    uint8_t ctrlchkstatus;
+    uint8_t adapternum;
+    uint8_t auth_version[2];
     char dobever[16];
     char sstring[40];
-}info;
+
+};
 
 struct workstate
 {
@@ -60,11 +71,18 @@ struct workstate
     bool miscsuc;
     bool loggedin;
     bool kalsuc;
-    bool verbose;
     bool autologout;
     bool broadcast;
     struct sockaddr_in localaddr;
     struct sockaddr_in serveraddr;
-}state;
+};
 
-#endif // _DOBE_CONST
+struct dobeoptions
+{
+    int verbose;
+    bool cha_fixed_trytimes;
+    bool lgi_use_win_ver;
+    bool ror;
+};
+
+#endif // _DOBE_STRUCT

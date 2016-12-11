@@ -1,9 +1,12 @@
 # dobecom
 
  yet a linux command-line Dr.com client for CUST
- COPYLEFT(only parts by myself) !
+ 你可以以任何形式修改，编译，运行，发布这个repo的一切（仅限我自己写的代码）
+ 但本人不保证任何可用性，不对一切修改，编译，运行，发布的行为所造成的任何后果（如滥用）承担责任
+
 ### acknowledgement
- protocol detail refer to [drcom-generic](https://github.com/drcoms/drcom-generic) by latyas.
+ 
+ protocol detail refer to [drcom-generic](https://github.com/drcoms/drcom-generic) by drcoms.
  
  md5 is using L. Peter Deutsch 's edition.
 ### doge
@@ -63,3 +66,36 @@
     ~~==++++++??????777II7II????++++?+++?+???+++++++=++I???????????????+++++++++++=+++++====~~~~~~~~~~~~
     ~~~==+++++?+?I???II77IIIIII????+++++++++????+?+?+??????????I?????+??+++++++++++++++=====~~~~~~~~~~~~
     ~~~==++++++++++????I?I??????+?+++???+++???????????????????????++??+++?++++++??++++=======~~~~~~~~~~~
+
+
+# usage
+
+ I'm so lazy to write one in program ,so put it there:
+ 
+    dobecom -D -u username -p password -i localbindingip -l localdialip -m 112233445566 -s serverip -v
+    dobecom -L -u username -p password -i localbindingip -l localdialip -m 112233445566 -s serverip -v
+    dobecom -h
+-D for normal udp dial mode and -L for login-only mode(for debug and I'm so lazy 2 remove the mode ,however it may not work)
+
+-u and your username (like 121212121 or 2020202020 or 2333) -p and your password (like 0000)
+
+-m your mac like 112233445566 (our school disabled mac check ,this argument is only for fun
+
+-i your ip address for binding ,you should use a ip your device have
+
+-l your ip address in first dialing you can use this for at most 4 times.(no check ,for fun ,too
+
+-s specify server ip (it seems that you needn't specify ,"192.168.254.3" in program is enough)
+
+-O options:
+
+    -O ror       for ror version (i dont know what "ror" stands for
+    -O winver    for using fixed windows version but get automatic
+
+-v verbose
+
+there are other arguments i forgot ,tired to find them out;
+
+example:
+
+   dobecom -D -u1234 -p 0000 -i 192.168.0.12 -l 192.168.225.24 -l 0.0.0.0 -m 233333312450 -v

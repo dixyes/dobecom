@@ -47,6 +47,16 @@ struct dobechrpkt
     uint8_t fixed1[16];
     uint8_t zeros[34];
 };
+struct fixedlgiextinfo
+{
+    uint8_t type;
+    uint8_t len;
+    uint8_t rand[4];
+    uint8_t mac[8];
+    uint8_t auto_lgo;
+    uint8_t bcastmode;
+    uint8_t tail[2];
+};
 struct dobelgipkt
 {
     uint8_t head;
@@ -54,7 +64,8 @@ struct dobelgipkt
     uint8_t usr_lth;
     uint8_t md5a[16];
     uint8_t username[36];
-    uint8_t fixed1[2];
+    uint8_t ctrlchkstatus;
+    uint8_t adapternum;
     uint8_t md5x[6];
     uint8_t md5b[16];
     uint8_t ipcount;
@@ -66,8 +77,8 @@ struct dobelgipkt
     uint8_t pri_dns[4];
     uint8_t dhcp[4];
     uint8_t sec_dns[4];
-    uint8_t zeros2[8];
-    uint8_t fixed2[4];
+    uint8_t wins_ip[8];
+    uint8_t os_length[4];
     uint8_t os_major[4];
     uint8_t os_minor[4];
     uint8_t os_build[4];
@@ -76,13 +87,15 @@ struct dobelgipkt
     uint8_t zeros3[32];
     uint8_t sstring[40];
     uint8_t zeros4[24];
-    uint8_t fixed3[2];
-    uint8_t fixed4[2];
-    uint8_t rand[4];
-    uint8_t mac[8];
-    uint8_t auto_lgo;
-    uint8_t bcastmode;
-    uint8_t tail[2];
+    uint8_t auth_version[2];
+    struct fixedlgiextinfo lgiextinfo;
+};
+
+struct rorlgiextinfo
+{
+    uint8_t type;
+    uint8_t len;
+    uint8_t ror;
 };
 struct dobesucpkt
 {
@@ -139,8 +152,10 @@ struct dobemscpkt
 #ifndef _DOBEPKT_FUNCS
 #define _DOBEPKT_FUNCS
 
+#ifndef htonll
 #define htonll(x) ((1==htonl(1)) ? (x) : ((uint64_t)htonl((x) & 0xFFFFFFFF) << 32) | htonl((x) >> 32))
 #define ntohll(x) ((1==ntohl(1)) ? (x) : ((uint64_t)ntohl((x) & 0xFFFFFFFF) << 32) | ntohl((x) >> 32))
+#endif
 
 extern void *challegepkt(void);
 extern void *loginpkt(void);
