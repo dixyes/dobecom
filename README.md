@@ -1,7 +1,9 @@
 # dobecom
 
  yet a linux command-line Dr.com client for no one
+ 
  你可以以任何形式修改，编译，运行，发布这个repo的一切（仅限我自己写的代码）
+ 
  但本人不保证任何可用性，不对一切修改，编译，运行，发布的行为所造成的任何后果（如滥用）承担责任
 
 ### acknowledgement
